@@ -6,11 +6,15 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Refresh
@@ -34,8 +38,10 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -164,11 +170,13 @@ fun CalculadoraIMC() {
             ) {
                 Text(text = "Calcular", fontSize = 20.sp) // Texto do botão
             }
-            Spacer(modifier = Modifier.height(20.dp)) // Espaço vertical
+            Spacer(modifier = Modifier.height(30.dp)) // Espaço vertical
 
             if (mostrarResultado) {
-                Text(text = "Resultado: $resultado") // Exibe o resultado do cálculo
+                CaixaSaidaTexto(resultado = resultado) // Exibe o resultado do cálculo
             }
+
+
         }
     }
 }
@@ -190,9 +198,25 @@ fun calcularIMC(peso: Double, altura: Double): String {
     return resultado
 }
 
+@Composable
+fun CaixaSaidaTexto(resultado: String){
+    Column {
+        Row {
+            Image(
+                painter = painterResource(id = R.drawable.baseline_info_24),
+                contentDescription = "informações",
+                modifier = Modifier.size(40.dp)
+            )
+            Spacer(modifier = Modifier.width(10.dp))
+            Text(text = resultado, textAlign = TextAlign.Center, fontSize = 18.sp)
+        }
+    }
+}
+
 @Preview(showBackground = true)
 @Composable
 fun GreetingPreview() {
+    val res = calcularIMC(100.0, 1.80)
     CalculadoraIMCEniacTheme {
         CalculadoraIMC() // Chama a função composable principal no modo de preview
     }
