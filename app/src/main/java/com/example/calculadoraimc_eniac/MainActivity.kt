@@ -46,35 +46,33 @@ import java.text.DecimalFormat
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
+        enableEdgeToEdge() // Habilita o modo edge-to-edge
         setContent {
             CalculadoraIMCEniacTheme {
-                CalculadoraIMC()
+                CalculadoraIMC() // Chama a função composable principal
             }
         }
     }
 }
 
-
 @Composable
 fun CalculadoraIMC() {
 
-    var peso by remember { mutableStateOf("") }
-    var altura by remember { mutableStateOf("") }
-    var resultado by remember { mutableStateOf("") }
-
-    var mostrarResultado by remember { mutableStateOf(false) }
+    var peso by remember { mutableStateOf("") } // Estado para armazenar o peso
+    var altura by remember { mutableStateOf("") } // Estado para armazenar a altura
+    var resultado by remember { mutableStateOf("") } // Estado para armazenar o resultado do cálculo
+    var mostrarResultado by remember { mutableStateOf(false) } // Estado para controlar a visibilidade do resultado
 
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text(text = "Calculadora IMC", fontSize = 25.sp) },
+                title = { Text(text = "Calculadora IMC", fontSize = 25.sp) }, // Título da barra superior
                 colors = TopAppBarDefaults.topAppBarColors(
                     containerColor = MaterialTheme.colorScheme.primary,
                     titleContentColor = WHITE
                 ),
                 actions = {
-                    IconButton(onClick = { peso = ""; altura = ""; mostrarResultado = false }
+                    IconButton(onClick = { peso = ""; altura = ""; mostrarResultado = false } // Botão para resetar os campos
                     ) {
                         Icon(
                             imageVector = Icons.Default.Refresh,
@@ -82,30 +80,29 @@ fun CalculadoraIMC() {
                             tint = WHITE
                         )
                     }
-
                 }
             )
         },
-        containerColor = Color.White
+        containerColor = Color.White // Cor de fundo da tela
     ) {
         Column(
-            modifier = Modifier.padding(it),
-            horizontalAlignment = Alignment.CenterHorizontally
+            modifier = Modifier.padding(it), // Espaçamento interno
+            horizontalAlignment = Alignment.CenterHorizontally // Alinhamento horizontal centralizado
         ) {
-            Spacer(modifier = Modifier.height(30.dp))
+            Spacer(modifier = Modifier.height(30.dp)) // Espaço vertical
             Text(
                 text = "Calcule seu IMC",
                 fontSize = 25.sp,
                 color = MaterialTheme.colorScheme.primary,
             )
-            Spacer(modifier = Modifier.height(20.dp))
+            Spacer(modifier = Modifier.height(20.dp)) // Espaço vertical
 
             OutlinedTextField(
-                value = peso.replace(",", "."),
+                value = peso.replace(",", "."), // Substitui vírgula por ponto no valor do peso
                 onValueChange = { novoPeso ->
-                    peso = novoPeso
+                    peso = novoPeso // Atualiza o estado do peso
                 },
-                label = { Text(text = "Peso") },
+                label = { Text(text = "Peso") }, // Rótulo do campo de texto
                 colors = OutlinedTextFieldDefaults.colors(
                     cursorColor = MaterialTheme.colorScheme.primary,
                     focusedBorderColor = MaterialTheme.colorScheme.primary,
@@ -115,23 +112,23 @@ fun CalculadoraIMC() {
                     focusedTextColor = MaterialTheme.colorScheme.primary,
                     unfocusedTextColor = MaterialTheme.colorScheme.secondary
                 ),
-                singleLine = true,
+                singleLine = true, // Define que o campo de texto é de uma única linha
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(20.dp, 0.dp, 20.dp, 0.dp),
+                    .fillMaxWidth() // O campo de texto ocupa a largura total disponível
+                    .padding(20.dp, 0.dp, 20.dp, 0.dp), // Espaçamento interno
                 keyboardOptions = KeyboardOptions(
-                    keyboardType = KeyboardType.Decimal,
-                    imeAction = ImeAction.Next
+                    keyboardType = KeyboardType.Decimal, // Define o teclado numérico
+                    imeAction = ImeAction.Next // Ação de avançar no teclado
                 )
             )
-            Spacer(modifier = Modifier.height(15.dp))
+            Spacer(modifier = Modifier.height(15.dp)) // Espaço vertical
 
             OutlinedTextField(
-                value = altura.replace(",", "."),
+                value = altura.replace(",", "."), // Substitui vírgula por ponto no valor da altura
                 onValueChange = { novaAltura ->
-                    altura = novaAltura
+                    altura = novaAltura // Atualiza o estado da altura
                 },
-                label = { Text(text = "Altura") },
+                label = { Text(text = "Altura") }, // Rótulo do campo de texto
                 colors = OutlinedTextFieldDefaults.colors(
                     cursorColor = MaterialTheme.colorScheme.primary,
                     focusedBorderColor = MaterialTheme.colorScheme.primary,
@@ -141,47 +138,47 @@ fun CalculadoraIMC() {
                     focusedTextColor = MaterialTheme.colorScheme.primary,
                     unfocusedTextColor = MaterialTheme.colorScheme.secondary
                 ),
-                singleLine = true,
+                singleLine = true, // Define que o campo de texto é de uma única linha
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(20.dp, 0.dp, 20.dp, 0.dp),
+                    .fillMaxWidth() // O campo de texto ocupa a largura total disponível
+                    .padding(20.dp, 0.dp, 20.dp, 0.dp), // Espaçamento interno
                 keyboardOptions = KeyboardOptions(
-                    keyboardType = KeyboardType.Decimal,
-                    imeAction = ImeAction.Done
+                    keyboardType = KeyboardType.Decimal, // Define o teclado numérico
+                    imeAction = ImeAction.Done // Ação de finalização no teclado
                 )
             )
-            Spacer(modifier = Modifier.height(20.dp))
+            Spacer(modifier = Modifier.height(20.dp)) // Espaço vertical
 
             Button(
                 onClick = {
-                    resultado = calcularIMC(peso.toDouble(), altura.toDouble())
-                    mostrarResultado = true
+                    resultado = calcularIMC(peso.toDouble(), altura.toDouble()) // Calcula o IMC
+                    mostrarResultado = true // Exibe o resultado
                 },
                 colors = ButtonDefaults.buttonColors(
                     containerColor = MaterialTheme.colorScheme.primary,
                     contentColor = WHITE
                 ),
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(20.dp, 0.dp, 20.dp, 0.dp)
+                    .fillMaxWidth() // O botão ocupa a largura total disponível
+                    .padding(20.dp, 0.dp, 20.dp, 0.dp) // Espaçamento interno
             ) {
-                Text(text = "Calcular", fontSize = 20.sp)
+                Text(text = "Calcular", fontSize = 20.sp) // Texto do botão
             }
-            Spacer(modifier = Modifier.height(20.dp))
+            Spacer(modifier = Modifier.height(20.dp)) // Espaço vertical
 
             if (mostrarResultado) {
-                Text(text = "Resultado: $resultado")
+                Text(text = "Resultado: $resultado") // Exibe o resultado do cálculo
             }
         }
     }
 }
 
-
 fun calcularIMC(peso: Double, altura: Double): String {
 
-    val imc = peso / (altura * altura)
-    val decimalFormat = DecimalFormat("0.00")
+    val imc = peso / (altura * altura) // Calcula o IMC
+    val decimalFormat = DecimalFormat("0.00") // Formata o resultado para duas casas decimais
 
+    // Verifica a faixa do IMC e retorna a classificação correspondente
     val resultado = when {
         imc < 18.5 -> "Peso Baixo \n IMC: ${decimalFormat.format(imc)}"
         imc < 24.9 -> "Peso Normal \n IMC: ${decimalFormat.format(imc)}"
@@ -197,6 +194,6 @@ fun calcularIMC(peso: Double, altura: Double): String {
 @Composable
 fun GreetingPreview() {
     CalculadoraIMCEniacTheme {
-        CalculadoraIMC()
+        CalculadoraIMC() // Chama a função composable principal no modo de preview
     }
 }
