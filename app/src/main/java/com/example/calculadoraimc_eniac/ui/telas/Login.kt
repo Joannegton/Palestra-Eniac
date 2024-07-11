@@ -67,12 +67,15 @@ fun Login(navController: NavController) {
             )
             Spacer(modifier = Modifier.height(30.dp))
 
+            // Campo de entrada de texto para o usuário
             EntradaTexto(
                 valor = usuario,
                 funcao = { novoUsuario -> usuario = novoUsuario },
                 label = "Usuario"
             )
             Spacer(modifier = Modifier.height(10.dp))
+
+            // Campo de entrada de texto para a senha
             EntradaTexto(
                 valor = senha,
                 funcao = { novaSenha -> senha = novaSenha },
@@ -80,9 +83,11 @@ fun Login(navController: NavController) {
             )
             Spacer(modifier = Modifier.height(15.dp))
 
+            // Botão de login
             Button(
                 onClick = {
                     if (usuario == "admin" && senha == "123") {
+                        // Navega para a tela da calculadora IMC se o login for bem-sucedido
                         navController.navigate("calculadoraIMC")
                     }
                 },
