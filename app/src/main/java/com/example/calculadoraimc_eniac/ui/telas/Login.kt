@@ -91,7 +91,7 @@ fun Login(navController: NavController) {
             // Botão de login
             Button(
                 onClick = {
-                    if (usuario == "admin" && senha == "123") {
+                    if (usuario == "admin" && senha == "1234") {
                         // Navega para a tela da calculadora IMC se o login for bem-sucedido
                         navController.navigate("calculadoraIMC")
                     }
