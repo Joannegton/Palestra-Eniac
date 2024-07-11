@@ -26,6 +26,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -92,7 +93,8 @@ fun CalculadoraIMC(navController: NavController) {
                 funcao = { novoPeso ->
                     peso = novoPeso // Atualiza o estado do peso
                 },
-                label = "Peso"// Rótulo do campo de texto
+                label = "Peso",// Rótulo do campo de texto
+                teclado = KeyboardType.Decimal // Tipo de teclado para números decimais
             )
             Spacer(modifier = Modifier.height(15.dp)) // Espaço vertical
 
@@ -101,7 +103,8 @@ fun CalculadoraIMC(navController: NavController) {
                 funcao = { novaAltura -> // Função para atualizar o estado da altura
                     altura = novaAltura // Atualiza o estado da altura
                 },
-                label = "Altura", // Rótulo do campo de texto
+                label = "Altura",// Rótulo do campo de texto
+                teclado = KeyboardType.Decimal, // Tipo de teclado para números decimais
                 acao = ImeAction.Done, // Ação de finalização do teclado
             )
             Spacer(modifier = Modifier.height(20.dp)) // Espaço vertical

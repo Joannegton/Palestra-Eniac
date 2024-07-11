@@ -22,6 +22,8 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -79,7 +81,10 @@ fun Login(navController: NavController) {
             EntradaTexto(
                 valor = senha,
                 funcao = { novaSenha -> senha = novaSenha },
-                label = "Senha"
+                label = "Senha",
+                teclado = KeyboardType.Password,
+                acao = ImeAction.Done,
+                senha = true
             )
             Spacer(modifier = Modifier.height(15.dp))
 

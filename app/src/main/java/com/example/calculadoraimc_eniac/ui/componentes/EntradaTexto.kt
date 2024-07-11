@@ -11,6 +11,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 
 @Composable
@@ -18,6 +20,8 @@ fun EntradaTexto(
     valor: String, // Valor atual do campo de texto
     funcao: (String) -> Unit, // Função para atualizar o valor
     label: String, // Rótulo do campo de texto
+    senha: Boolean = false, // Indica se o campo de texto é uma senha
+    teclado: KeyboardType = KeyboardType.Text, // Tipo de teclado
     acao: ImeAction = ImeAction.Next // Ação de finalização no teclado
 ){
     OutlinedTextField(
@@ -38,8 +42,9 @@ fun EntradaTexto(
             .fillMaxWidth() // O campo de texto ocupa a largura total disponível
             .padding(20.dp, 0.dp, 20.dp, 0.dp), // Espaçamento interno
         keyboardOptions = KeyboardOptions(
-            keyboardType = KeyboardType.Decimal, // Define o teclado numérico
+            keyboardType = teclado, // Define o teclado numérico
             imeAction = acao // Ação de finalização no teclado
-        )
+        ),
+        visualTransformation = if (senha) PasswordVisualTransformation() else VisualTransformation.None
     )
 }
